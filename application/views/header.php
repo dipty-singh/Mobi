@@ -1,3 +1,93 @@
+<script>
+	$(document).ready(function(){
+	$('#login_but').click(function(){
+		var email = $('#login_email').val();
+		var pass = $('#login_pass').val();
+		console.log(email+" & "+pass);
+		if (email=='') {
+			sweetAlert('Please Enter Email');
+		}
+		else if(pass == '') {
+			sweetAlert('Please Enter Password');
+		}
+		else{
+			$.ajax({
+				type: "POST",
+	 			dataType: 'json',
+	 			url: "http://localhost/mobi/index.php/User/login",
+	 			data: 'email='+email+'&pass='+pass,
+	 			success:function(response){
+	 				console.log(response);
+	 				if (response.success) {
+	 					window.location.reload();
+	 				}
+	 				else{
+	 					sweetAlert(response.msg);
+	 				}
+	 			},
+	 			error:function(res){
+	 				console.log(res);
+	 				// sweetAlert(res);
+	 			}
+			});
+		}
+	});
+
+	$('#sign_but').click(function(){
+		if ($('#sign_last').val()=='') {
+			var name = $('#sign_name').val();
+		}
+		else{
+			var name = $('#sign_name').val()+' '+$('#sign_last').val();
+		}
+		var phone = $('#sign_phone').val();
+		var email = $('#sign_email').val();
+		var pass = $('#sign_pass').val();
+		var confirm = $('#confirm_pass').val();
+		console.log(name+" & "+phone+" & "+email+" & "+pass+" & "+confirm);
+		if ($('#sign_name').val() == '') {
+			sweetAlert('Please Enter Name');
+		}
+		else if (phone == '') {
+			sweetAlert('Please Enter Phone Number');
+		}
+		else if (email=='') {
+			sweetAlert('Please Enter Email');
+		}
+		else if(pass == '') {
+			sweetAlert('Please Enter Password');
+		}
+		else if (phone.length<10) {
+			sweetAlert('Incorrect Phone Number')
+		}
+		else if (pass != confirm) {
+			sweetAlert('Password not matched');
+		}
+		else{
+			$.ajax({
+				type: "POST",
+	 			dataType: 'json',
+	 			url: "http://localhost/mobi/index.php/User/sign_up",
+	 			data: 'email='+email+'&pass='+pass+'&name='+name+'&phone='+phone,
+	 			success:function(response){
+	 				console.log(response);
+	 				if (response.success) {
+	 					window.location.reload();
+	 				}
+	 				else{
+	 					sweetAlert(response.msg);
+	 				}
+	 			},
+	 			error:function(res){
+	 				console.log(res);
+	 				// sweetAlert(res);
+	 			}
+			});
+		}
+	});
+
+});
+</script>
 <div id="wr wrapper">
 <div id="header">
 	<div id="subheader">
@@ -5,7 +95,7 @@
 	<p>ONLINE MOBILE STORE</p>
 	<?php if (isset($_SESSION['name'])) { ?>
 	<!-- <a href="#" data-target="#login_model" data-toggle="modal"></a> -->
-	<a href="#"><?php echo $_SESSION['name']; ?></a><a href="http://localhost/mobi/index.php/User/logout"><i class="fa fa-power-off"></i></a>
+	<a href="http://localhost/mobi/index.php/User/logout"><i class="fa fa-power-off"> LOgoUT</i></a><a href="#"><?php echo $_SESSION['name']; ?></a>
 	<?php } else { ?>
 	<a href="#" data-target="#login_model" data-toggle="modal">Login / Sign-Up</a>
 	<?php } ?>	
@@ -47,20 +137,22 @@
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="login_pane" class="modal_content">
-							<form method="post" action="http://localhost/mobi/index.php/User/login">
-								<input type="email" name="email" class="form-control" placeholder="Enter Email">
-								<input type="password" name="pass" class="form-control" placeholder="Enter Password">
-								<input type="submit" name="login" value="Login">
-							</form>
+							<!-- <form method="post" name="login_form" action=""> -->
+								<input type="email" id="login_email" name="email" class="form-control" placeholder="Enter Email">
+								<input type="password" id="login_pass" name="pass" class="form-control" placeholder="Enter Password">
+								<input type="submit" id="login_but" name="login" value="Login">
+							<!-- </form> -->
 						</div>
 						<div class="tab-pane" id="sign_up_pane" class="modal_content">
-							<form method="post" action="http://localhost/mobi/index.php/User/sign_up">
-								<input type="text" name="name" class="form-control" placeholder="Enter Name">
-								<input type="text" name="phone" class="form-control" placeholder="Enter Phone" onkeypress="return event.charCode>=48 && event.charCode<=57" max-length="10">
-								<input type="email" name="email" class="form-control" placeholder="Enter Email">
-								<input type="password" name="pass" class="form-control" placeholder="Enter Password">
-								<input type="submit" name="sign_up" value="Sign Up">
-							</form>							
+							<!-- <form method="post" action="#"> -->
+								<input type="text" id="sign_name" name="name" class="form-control" placeholder="Enter First Name" onkeypress="return event.charCode>=65 && event.charCode<=122">
+								<input type="text" id="sign_last" name="name" class="form-control" placeholder="Enter Last Name" onkeypress="return event.charCode>=65 && event.charCode<=122">
+								<input type="text" id="sign_phone" maxlength="10" name="phone" class="form-control" placeholder="Enter Phone" onkeypress="return event.charCode>=48 && event.charCode<=57">
+								<input type="email" id="sign_email" name="email" class="form-control" placeholder="Enter Email">
+								<input type="password" id="sign_pass" name="pass" class="form-control" placeholder="Enter Password">
+								<input type="password" id="confirm_pass" name="pass" class="form-control" placeholder="Confirm Password">
+								<input type="submit" id="sign_but" name="sign_up" value="Sign Up">
+							<!-- </form> -->
 						</div>
 					</div>
 				</center>

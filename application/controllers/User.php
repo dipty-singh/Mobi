@@ -8,6 +8,27 @@ class User extends CI_Controller {
 		$res['brand'] = $this->User_model->get_all('brand');
 		$this->load->view('home',$res);
 	}
+	public function booking(){
+		$prod_id = $_POST['prod_id'];
+		$data = array('booking_user_id'=>$_SESSION['id'],
+					'booking_product_id'=>$prod_id,
+					'status'=>'pending',
+					'booking_address'=>$_POST['address']);
+		$cond = array('booking_user_id'=>$_SESSION['id'],
+					'booking_product_id'=>$prod_id);
+		$exist = $this->User_model->get_row('booking',$cond);
+		if ($exist) {
+			$response['success'] = false;
+			$response['msg'] = "Already Booked";			
+		}
+		else
+		{
+			$res = $this->User_model->add('booking',$data);			
+			$response['success'] = true;
+			$response['msg'] = "Successfully Booked";
+		}
+		echo json_encode($response);
+	}
 	public function product($condi)
 	{
 		$cond = array('brand'=>$condi);
@@ -16,8 +37,7 @@ class User extends CI_Controller {
 	}
 	public function product_detail($condi)
 	{
-		$cond = array('id'=>$condi);
-		$res['prod'] = $this->User_model->get_row('product',$cond);
+		$res['prod'] = $this->User_model->get_product($condi);
 		$this->load->view('product_detail',$res);
 	}
 	public function sign_up(){
@@ -26,37 +46,52 @@ class User extends CI_Controller {
 		'phone' => $_POST['phone'],
 		'email' => $_POST['email'],
 		'password' => $_POST['pass'],
-		'status' => 1,
+		'status' => 'active',
 		'date_time' => $curr_date);
 		$exist = $this->User_model->get_row('users',array('email'=>$_POST['email']));
 		if ($exist) {
-			header('Location: http://localhost/mobi/index.php/User');			
+			$response['success'] = false;
+			$response['msg'] = "User Already Exists";
 		}
 		else{
-			$data = array('name' => $_POST['name'],
-		'email' => $_POST['email'],
-		'password' => $_POST['pass']);
 			$this->User_model->add('users',$data);
-			$this->session->set_userdata($data);
-			header('Location: http://localhost/mobi/index.php/User');
+			$res_ses = $this->User_model->get_row('users',array('email'=>$_POST['email']));
+			$data1 = array('name' => $res_ses->name,
+						  'email' => $res_ses->email,
+						  'password' => $res_ses->password,
+						  'id' => $res_ses->id);
+			$this->session->set_userdata($data1);
+			$response['success'] = true;
+			$response['msg'] = $data;
 		}
+		echo json_encode($response);
 	}
 	public function login(){
 		$email = $_POST['email'];
 		$pass = $_POST['pass'];
-		$res = $this->User_model->get_row('users',array('email'=>$email,'password'=>$pass,'status'=>1));
-		$data = array('email'=>$email,'password'=>$pass,'name'=> $res->name);
+		$res = $this->User_model->get_row('users',array('email'=>$email,'password'=>$pass));
 		if ($res) {
-			$this->session->set_userdata($data);
-			header('Location: http://localhost/mobi/index.php/User');			
+			if ($res->status=='active') {
+				$data = array('email'=>$email,'password'=>$pass,'name'=> $res->name, 'id' => $res->id);
+				$this->session->set_userdata($data);
+				$response['success'] = true;
+				$response['msg'] = $data;
+			}
+			else{
+				$response['success'] = false;
+				$response['msg'] = "User Removed from our site";
+			}
 		}
 		else{
-			header('Location: http://localhost/mobi/index.php/User');
+			$response['success'] = false;
+			$response['msg'] = 'Wrong Login Credentials';
 		}
+			echo json_encode($response);
 	}
 	public function logout()
 	{
-		$this->session->unset_userdata($_SESSION['name']);
-		header('Location: http://localhost/mobi/index.php/User');		
+		$this->load->library('session');
+		unset($_SESSION['name']);
+		header('Location: http://localhost/mobi/index.php/User');
 	}
 }

@@ -26,8 +26,16 @@ class User_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result();
 	}
+	public function get_product($cond){
+		return $this->db->query("SELECT * FROM `product` AS `p` INNER JOIN `brand` as `b` ON `p`.`brand`=`b`.`brand_id` WHERE `p`.`id`=$cond")->row();
+	}
 	public function add($table,$data){
 		$query = $this->db->insert($table,$data);
+		return $this->db->affected_rows();
+	}
+	public function update($table,$data,$cond){
+		$this->db->where($cond);
+		$query = $this->db->update($table,$data);
 		return $this->db->affected_rows();
 	}
 }
