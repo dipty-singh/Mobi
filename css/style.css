@@ -7,8 +7,8 @@
 #subheader{
 	width: 100%;
 	height: 40px;
-	background: #0000A0;
-	color: #fff;
+	background: #003366;
+	color: #FFFFFF;
 	/*margin-top: -15px;*/
 }
 input{
@@ -32,7 +32,7 @@ input{
 #main-header{
 	width: 100%;
 	height: 100px;
-	background:#87ceeb;
+	background:#D3D3D3;
 	float: left;
 	/*margin-top: -15px; */
 }
@@ -121,7 +121,12 @@ border: 2px solid #00ffee;
 	color: white;
 	text-decoration:none; 
 }
+.image_product{
+	height: 500px;
+	margin-left:auto; 
+	margin-right:auto;
 
+}
 
 
 
