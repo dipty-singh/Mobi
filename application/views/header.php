@@ -1,5 +1,6 @@
 <script>
 	$(document).ready(function(){
+
 	$('#login_but').click(function(){
 		var email = $('#login_email').val();
 		var pass = $('#login_pass').val();
@@ -94,19 +95,24 @@
 <div class="container_head">
 	<p>ONLINE MOBILE STORE</p>
 	<?php if (isset($_SESSION['name'])) { ?>
-	<!-- <a href="#" data-target="#login_model" data-toggle="modal"></a> -->
-	<a href="http://localhost/mobi/index.php/User/logout"><i class="fa fa-power-off"> LOgoUT</i></a><a href="#"><?php echo $_SESSION['name']; ?></a>
+    <a href="http://localhost/mobi/index.php/User/cart" id="cart_icon"><p class="glyphicon glyphicon-shopping-cart"></p></a>
+  <div class="dropdown" style="float: right;">
+    <p class="dropdown-toggle" id="menu1" style="cursor: pointer;" data-toggle="dropdown"><?php echo $_SESSION['name']; ?></p>
+    <ul style="min-width: 110px; width: 110px;" class="dropdown-menu" role="menu" aria-labelledby="menu1">
+<!-- 		<li role="presentation"><a style="color: black;" href="http://localhost/mobi/index.php/User/profile"><i class="fa fa-user" aria-hidden="true">  Profile</i></a></li> -->
+		<li role="presentation"><a style="color: black;" href="http://localhost/mobi/index.php/User/logout"><i class="fa fa-power-off"> Logout</i></a></li>
+    </ul>
+  </div>
 	<?php } else { ?>
 	<a href="#" data-target="#login_model" data-toggle="modal">Login / Sign-Up</a>
 	<?php } ?>	
-	<!-- <a href="#">Guest</a><a href="#">Costumer</a> --><a href="#">Help</a>
 	</div>
 </div>
 <!--==MAIN HEADER==-->
 	<div id="main-header">
 		<!--logo-->
 	<div id="logo">
-		<span id="ist">MoBee<hr><!-- <img src="https://i.pinimg.com/originals/90/73/a2/9073a24cd03cfe6f541cacff718daedd.jpg"> --></span>
+		<a href="http://localhost/mobi/index.php/User" style="text-decoration: none;"><span id="ist">MoBee<hr><!-- <img src="https://i.pinimg.com/originals/90/73/a2/9073a24cd03cfe6f541cacff718daedd.jpg"> --></span></a>
 	</div>
 	<!--==search area==-->
 <!-- 	<div id="search">

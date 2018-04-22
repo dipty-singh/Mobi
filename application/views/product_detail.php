@@ -15,7 +15,7 @@
 	<div class="container" style="margin-bottom: 20px;">
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12">
-				<img class="image_product" src="<?=($prod->product_img);?>">
+				<img id="zoom_01" class="image_product" src="<?=($prod->product_img);?>">
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="row" style="">
@@ -64,13 +64,12 @@
 	<div class="modal-dialog" style="width: 400px;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h1>Enter Address</h1>
-				<span style="float: right; cursor: pointer; color: red;" data-dismiss="modal">X</span>
+				<span style="font-size: 18px; font-style: bold;">Enter Address</span><span style="float: right; cursor: pointer; color: red;" data-dismiss="modal">X</span>
 			</div>
 			<div class="modal-body">
 				<center>
 					<!-- <form method="post" name="login_form" action=""> -->
-						<textarea cols="50" rows="6" class="form-control"></textarea>
+						<textarea id="address" cols="50" rows="6" class="form-control"></textarea>
 						<input type="submit" id="booking" name="sign_up" value="Book Now">
 					<!-- </form> -->
 				</center>
@@ -80,20 +79,93 @@
 </div>
 
 	<script>
+
+function flyToElement(flyer, flyingTo) {
+    var $func = $(this);
+    var divider = 3;
+    var flyerClone = $(flyer).clone();
+    $(flyerClone).css({position: 'absolute', top: $(flyer).offset().top + "px", left: $(flyer).offset().left + "px", opacity: 1, 'z-index': 1000});
+    $('body').append($(flyerClone));
+    var gotoX = $(flyingTo).offset().left + ($(flyingTo).width() / 2) - ($(flyer).width()/divider)/2;
+    var gotoY = $(flyingTo).offset().top + ($(flyingTo).height() / 2) - ($(flyer).height()/divider)/2;
+     
+    $(flyerClone).animate({
+        opacity: 0.4,
+        left: gotoX,
+        top: gotoY,
+        width: $(flyer).width()/divider,
+        height: $(flyer).height()/divider
+    }, 700,
+    function () {
+        $(flyingTo).fadeOut('fast', function () {
+            $(flyingTo).fadeIn('fast', function () {
+                $(flyerClone).fadeOut('fast', function () {
+                    $(flyerClone).remove();
+                });
+            });
+        });
+    });
+}
+
+function addtocart_zoom(a) {
+    console.log(a);
+	            // window.location.reload(true);
+
+  //   $.ajax({
+  //       url: "http://localhost/addtocart.php",
+  //       type: "POST",
+		// data : {
+		// 	email:val,
+		// 	id:a,
+		// 	type:"1"
+		// },
+  //       success: function (response) {
+		// 	if(response==0){
+		// 		$('html, body').animate({
+	 //            	'scrollTop' : $('#cart_icon').position().top
+	 //            });
+	 //            flyToElement($('#zoom_01'), $('#cart_icon'));
+	 //            window.location.reload(true);
+		// 	}
+		// 	else if(response==1){
+		// 		alert("Sorry,we got a problem adding product in your cart. Please try after some time");
+		// 	}else if(response==2){
+		// 		alert("Login First to add in cart");
+  //               $("a").on("click", function(){
+  //               	$($(this).attr("login-modal")).modal("show");
+  //               });
+  //           }
+  //           else if(response==-1){
+  //             alert("Product already in your cart! Manage the quantity during checkout.");
+  //             window.location.reload(true); 
+  //           }
+  //       },
+  //       error: function(jqXHR, textStatus, errorThrown) {
+  //       	console.log(textStatus, errorThrown);
+  //       }
+  //    });
+}
+
 		$(document).ready(function(){
-		$('#booking').click(function(){
+
+		$('#cart').click(function(){
 			var prod_id = $('#prod_id').val();
-			var address = $('#address').val();
 			console.log(prod_id);
+			console.log("address "+address);
 			$.ajax({
 				type: "POST",
 	 			dataType: 'json',
-	 			url: "http://localhost/mobi/index.php/User/booking",
-	 			data: 'prod_id='+prod_id+'&address='+address,
+	 			url: "http://localhost/mobi/index.php/User/add_cart",
+	 			data: 'prod_id='+prod_id,
 	 			success:function(response){
 	 				console.log(response);
 	 				if (response.success) {
+						$('html, body').animate({
+			            	'scrollTop' : $('#cart_icon').position().top
+			            });
+			            flyToElement($('#zoom_01'), $('#cart_icon'));
 	 					sweetAlert(response.msg);
+	 					setTimeout(function() { window.location.reload(true); }, 2000); 
 	 				}
 	 				else{
 	 					sweetAlert(response.msg);
@@ -105,6 +177,38 @@
 	 			}
 			});
 		});
+
+		$('#booking').click(function(){
+			var prod_id = $('#prod_id').val();
+			var address = $('#address').val();
+			console.log(prod_id);
+			console.log("address "+address);
+			if (address == '') {
+				sweetAlert('Enter Address');
+			}
+			else{
+				$.ajax({
+					type: "POST",
+		 			dataType: 'json',
+		 			url: "http://localhost/mobi/index.php/User/booking",
+		 			data: 'prod_id='+prod_id+'&address='+address,
+		 			success:function(response){
+		 				console.log(response);
+		 				if (response.success) {
+			              window.location.href = "http://localhost/mobi/index.php/User/pay/"+response.id;
+		 				}
+		 				else{
+		 					sweetAlert(response.msg);
+		 				}
+		 			},
+		 			error:function(res){
+		 				console.log(res);
+		 				// sweetAlert(res);
+		 			}
+				});
+			}
+		});
+
 	});
 	</script>
 </body>

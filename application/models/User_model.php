@@ -18,6 +18,9 @@ class User_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->row();
 	}
+	public function get_cart($table,$id){
+		return $this->db->query('SELECT * FROM `cart` INNER JOIN `product` ON `cart`.`booking_product_id`=`product`.`id` WHERE `cart`.`booking_user_id`='.$id)->result();
+	}
 	public function get_result($table,$cond)
 	{
 		$this->db->select('*');
@@ -32,6 +35,11 @@ class User_model extends CI_Model {
 	public function add($table,$data){
 		$query = $this->db->insert($table,$data);
 		return $this->db->affected_rows();
+	}
+	public function delete($table,$cond){
+		$this->db->where($cond);
+		$query = $this->db->delete($table);
+		return $this->db->affected_rows();		
 	}
 	public function update($table,$data,$cond){
 		$this->db->where($cond);
