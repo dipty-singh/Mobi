@@ -12,10 +12,13 @@
 </head>
 <body>
 	<?php include('header.php'); ?>
-	<div class="container" style="margin-top: 20px;">
-		<div class="row">
+
+	<div class="container">
+		<div class="row" style="margin-top: 100px;">
+
 			<?php foreach ($prod as $key) { ?>
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><div class="bord"><a href="http://localhost/mobi/index.php/User/product_detail/<?=($key->id);?>" style="text-decoration: none; color: black;"><center><img class="img_home_prod" src="<?=($key->product_img);?>"><span><h1><?=($key->product_name);?></h1></span></a></center></div></div>
+			
 			<?php } ?>			
 		</div>
 	</div>

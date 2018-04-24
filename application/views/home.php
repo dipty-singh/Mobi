@@ -14,20 +14,52 @@
 	<?php include('header.php'); ?>
 <div id="myCarousel" class="carousel slide carous" data-ride="carousel">
 	<div class="carousel-inner">
-		<div class="item active"><center><img class="imgcar" src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphone6s/rosegold/iphone6s-rosegold-select-2015?wid=470&hei=556&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=wS5lh2"></center></div>
-		<div class="item"><center><img class="imgcar" src="https://i.ytimg.com/vi/2I6aX8CojRM/maxresdefault.jpg"></center></div>
-		<div class="item"><center><img class="imgcar" src="https://images-na.ssl-images-amazon.com/images/I/71lek4W98EL._SL1500_.jpg"></center></div>
+		<div class="item active">
+			<center>
+				<img class="imgcar" src="../img/mob8.jpg">
+			</center>
+		</div>
+		<div class="item">
+			<center>
+				<img class="imgcar" src="../img/m3.jpg">
+			</center>
+		</div>
+		<div class="item">
+			<center>
+				<img class="imgcar" src="../img/mob2.jpg">
+			</center>
+		</div>
+		<div class="item">
+			<center>
+				<img class="imgcar" src="../img/mob3.jpg">
+			</center>
+		</div>
+		<div class="item">
+			<center>
+				<img class="imgcar" src="../img/mob4.jpg">
+			</center>
+		</div>
+		<div class="item">
+			<center>
+				<img class="imgcar" src="../img/mob5.jpg">
+			</center>
+		</div>
+		<div class="item">
+			<center>
+				<img class="imgcar" src="../img/m1.jpg">
+			</center>
+		</div>
 	</div>
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+<!--     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left"></span>
       <span class="sr-only">Previous</span>
     </a>
     <a class="right carousel-control" href="#myCarousel" data-slide="next">
       <span class="glyphicon glyphicon-chevron-right"></span>
       <span class="sr-only">Next</span>
-    </a>
+  </a> -->
+      </div>
 
-</div>
 <div class="container" style="margin-top: 20px;">
 	<div class="row">
 		<?php foreach ($brand as $key) { ?>

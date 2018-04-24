@@ -1,5 +1,17 @@
 <script>
+// When the user scrolls down 20px from the top of the document, show the button
+$(window).scroll(function() {
+    if ($(this).scrollTop() > 50 ) {
+        $('.scrolltop:hidden').stop(true, true).fadeIn();
+    } else {
+        $('.scrolltop').stop(true, true).fadeOut();
+    }
+});
+
+$(function(){$(".scroll").click(function(){$("html,body").animate({scrollTop:$(".thetop").offset().top},"1000");return false})});
+
 	$(document).ready(function(){
+
 
 	$('#login_but').click(function(){
 		var email = $('#login_email').val();
@@ -89,46 +101,43 @@
 
 });
 </script>
-<div id="wr wrapper">
-<div id="header">
-	<div id="subheader">
+<!-- <div id="subheader">
 <div class="container_head">
-	<p>ONLINE MOBILE STORE</p>
-	<?php if (isset($_SESSION['name'])) { ?>
-    <a href="http://localhost/mobi/index.php/User/cart" id="cart_icon"><p class="glyphicon glyphicon-shopping-cart"></p></a>
-  <div class="dropdown" style="float: right;">
-    <p class="dropdown-toggle" id="menu1" style="cursor: pointer;" data-toggle="dropdown"><?php echo $_SESSION['name']; ?></p>
+ -->
+<div class="thetop"></div>
+<div class="wrapper wr">
+<nav id="subheader" class="navbar navbar-default">
+    <div class="navbar-header">
+      <a style="margin-top: 15px;" class="" href="http://localhost/mobi/index.php/User">MoBiWoRlD</a>
+    </div>
+    <ul class="nav navbar-nav" style="margin-left: 20px; border-left: 1px solid white;">
+      <li class=""><a href="http://localhost/mobi/index.php/User">Home</a></li>
+      <li class=""><a href="http://localhost/mobi/index.php/User/product/1">Products</a></li>
+    </ul>
+	
+		<?php if (isset($_SESSION['name'])) { ?>
+    <a style="margin-top: 15px;" href="http://localhost/mobi/index.php/User/cart" id="cart_icon">
+    	<p class="glyphicon glyphicon-shopping-cart"></p>
+    </a>
+  <div class="dropdown" style="margin-top: 15px; float: right;">
+    <p class="dropdown-toggle" id="menu1" style="cursor: pointer; color: white;" data-toggle="dropdown"><?php echo $_SESSION['name']; ?></p>
     <ul style="min-width: 110px; width: 110px;" class="dropdown-menu" role="menu" aria-labelledby="menu1">
-<!-- 		<li role="presentation"><a style="color: black;" href="http://localhost/mobi/index.php/User/profile"><i class="fa fa-user" aria-hidden="true">  Profile</i></a></li> -->
 		<li role="presentation"><a style="color: black;" href="http://localhost/mobi/index.php/User/logout"><i class="fa fa-power-off"> Logout</i></a></li>
     </ul>
   </div>
 	<?php } else { ?>
-	<a href="#" data-target="#login_model" data-toggle="modal">Login / Sign-Up</a>
-	<?php } ?>	
-	</div>
+	<a style="margin-top: 15px;" href="#" data-target="#login_model" data-toggle="modal">Login / Sign-Up</a>
+	<?php } ?>
+
+</nav>
 </div>
-<!--==MAIN HEADER==-->
-	<div id="main-header">
-		<!--logo-->
-	<div id="logo">
-		<a href="http://localhost/mobi/index.php/User" style="text-decoration: none;"><span id="ist">MoBee<hr><!-- <img src="https://i.pinimg.com/originals/90/73/a2/9073a24cd03cfe6f541cacff718daedd.jpg"> --></span></a>
-	</div>
-	<!--==search area==-->
-<!-- 	<div id="search">
-		<form action="">
-			<input class="search-area" type="text" name="text" placeholder="search here">
-			<input class="search-btn" type="submit" name="submit" value="SEARCH">
-		</form>
-	</div> -->
-<!--==user menu==-->
-<!-- 	<div id="user-menu">
-	<li><a href="#">Cart</a></li>
-	<li></li>+
-	</div> -->
+
+<!-- 	</div>
+</div> -->
+<div class='scrolltop'>
+    <div class='scroll icon'><i class="fa fa-4x fa-angle-up"></i></div>
 </div>
-</div>
-</div>
+
 <div id="login_model" class="modal fade" role="dialog">
 	<div class="modal-dialog" style="width: 400px;">
 		<div class="modal-content">
@@ -158,6 +167,7 @@
 								<input type="password" id="sign_pass" name="pass" class="form-control" placeholder="Enter Password">
 								<input type="password" id="confirm_pass" name="pass" class="form-control" placeholder="Confirm Password">
 								<input type="submit" id="sign_but" name="sign_up" value="Sign Up">
+
 							<!-- </form> -->
 						</div>
 					</div>

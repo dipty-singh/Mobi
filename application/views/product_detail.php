@@ -13,13 +13,14 @@
 <body>
 	<?php include('header.php'); ?>
 	<div class="container" style="margin-bottom: 20px;">
-		<div class="row">
+		<div class="row" style="margin-top: 100px;">
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<img id="zoom_01" class="image_product" src="<?=($prod->product_img);?>">
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="row" style="">
 					<div class="col-md-12 col-sm-12 col-xs-12">
+
 						<h1><?=($prod->product_name);?></h1>
 						<input type="hidden" id="prod_id" name="product_id" value="<?=($prod->id);?>">
 						<div class="col-md-6 col-sm-6 col-xs-6">
@@ -59,6 +60,7 @@
 			</div>
 		</div>
 	</div>
+	
 
 <div id="add_model" class="modal fade" role="dialog">
 	<div class="modal-dialog" style="width: 400px;">

@@ -265,6 +265,13 @@ class User extends CI_Controller {
 			echo json_encode($response);
 	}
 
+	public function remove_cart()
+	{
+		$this->User_model->delete('cart',array('cart_id'=>$_POST['prod_id']));
+				$response['success'] = true;
+				echo json_encode($response);
+	}
+
 	public function logout()
 	{
 		$this->load->library('session');

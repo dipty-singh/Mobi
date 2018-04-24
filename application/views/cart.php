@@ -15,7 +15,7 @@
     $prod_id='';
    ?>
     <div class="container">
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+      <div style="margin-top: 100px;" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
         <?php if(!empty($cart)){
         foreach($cart as $key) {
         $total_amt = $total_amt + $key->price;
@@ -29,6 +29,7 @@
          ?>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="bord row">
+              <p style="color: red; float: right; padding: 20px; cursor: pointer;" onclick="remove_cart(<?=($key->cart_id)?>)">X</p>
               <img class="img_home_prod col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" src="<?=($key->product_img);?>">
               <div style="padding-top: 30px;" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                 <center><span><b>Product Name:</b> <?=($key->product_name);?></span>
@@ -40,9 +41,10 @@
         $gst = $total_amt/100*5;
          ?>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+      <div style="margin-top: 100px;" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
         <div class="bord">
           <h1>Details</h1>
+          <input type="hidden" id="cart_id" value="<?=($key->cart_id)?>">
           <input type="hidden" name="id" id="prod_id" value="<?=($prod_id);?>">
           <table style="width: 100%;" class="table-responsive">
             <tr style="height: 30px;">
@@ -64,13 +66,38 @@
       </div>
     </div>
       <?php } else{ ?>
-        <div class="row">
+        <div class="row" style="margin-top: 100px;">
           <div class="bord col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <center><h2>No Item in Cart</h2></center>
           </div>
         </div>
       <?php } ?>
 <script type="text/javascript">
+
+      function remove_cart(id){
+      var prod_id = id;
+        $.ajax({
+          type: "POST",
+          dataType: 'json',
+          url: "http://localhost/mobi/index.php/User/remove_cart",
+          data: 'prod_id='+prod_id,
+          success:function(response){
+            console.log(response);
+            if (response.success) {
+              location.reload(true);
+            }
+            else{
+              sweetAlert(response.msg);
+            }
+          },
+          error:function(res){
+            console.log(res);
+            // sweetAlert(res);
+          }
+        });
+      }
+
+
     $(document).ready(function(){
 
     $('#booking').click(function(){

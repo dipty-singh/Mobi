@@ -1,14 +1,70 @@
 #wrapper{font font-family: tahoma;}
 .container_head{
-	width:90%;
+	width:100%;
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: 10%;
+}
+
+*{ 
+  font-family:tahoma;
+}
+/* .testheight Not required - unless testing ;) */
+.testheight {
+  height:1200px;
+  font-size:20px;
+  text-align:center;
+  padding:100px 20px;
+}
+.scrolltop {
+	display:none;
+	width:100%;
+	margin:0 auto;
+	position:fixed;
+	bottom:20px;
+	right:10px;	
+}
+.scroll {
+	position:absolute;
+	right:20px;
+	bottom:20px;
+	background:#b2b2b2;
+	background:rgba(178,178,178,0.7);
+	padding:20px;
+	text-align: center;
+	margin: 0 0 0 0;
+	cursor:pointer;
+	transition: 0.5s;
+	-moz-transition: 0.5s;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s; 		
+}
+.scroll:hover {
+	background:rgba(178,178,178,1.0);
+	transition: 0.5s;
+	-moz-transition: 0.5s;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s; 		
+}
+.scroll:hover .fa {
+	padding-top:-10px;
+}
+.scroll .fa {
+	font-size:30px;
+	margin-top:-5px;
+	margin-left:1px;
+	transition: 0.5s;
+	-moz-transition: 0.5s;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s; 	
 }
 #subheader{
+	opacity: 0.6;
 	width: 100%;
-	height: 40px;
-	background: #31b0d5;
-	color: #FFFFFF;
+	position: fixed;
+	z-index: 100;
+	background: #003366;
+	color: #003366;
+	padding-right: 20PX;
 	/*margin-top: -15px;*/
 }
 input{
@@ -26,7 +82,7 @@ input{
 	line-height: 30px;
 	color: #fff;
 	text-decoration:none;
-	margin-left: 30px; 
+	margin-left: 10px; 
 }
 /*logo styling*/
 #main-header{
@@ -45,7 +101,8 @@ input{
 .bord{
 	padding: 10px;
 	margin :5px;
-border: 2px solid #00ffee;
+	box-shadow: 5px 10px 10px #888888;
+/*border: 2px solid #00ffee;*/
 }
 
 #ist{
@@ -78,10 +135,11 @@ border: 2px solid #00ffee;
 	padding-left: 15px;
 }
 .carous{
-	margin-top: 100px;
+	position: relative;
 }
 .imgcar{
-	height: 400px;
+	height: 700px;
+	width: 100%;
 	margin-right: auto;
 	margin-left: auto;
 }
